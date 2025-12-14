@@ -445,7 +445,7 @@ Site deployed on **Cloudflare Pages** with automatic builds on every push to `ma
 **Build settings:**
 - Build command: `npm run build`
 - Output directory: `_site`
-- Node version: 18
+- Node version: 22.20.0
 
 **Workflow:**
 ```bash

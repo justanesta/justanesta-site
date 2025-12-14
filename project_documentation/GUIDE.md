@@ -1168,7 +1168,7 @@ To create a new content type with collections:
 - Framework preset: Eleventy
 - Build command: `npm run build`
 - Build output directory: `_site`
-- Node version: 18 (set via environment variable if needed)
+- Node version: 22.20.0 (set via environment variable if needed)
 
 **Continuous Deployment:**
 ```bash
