@@ -1249,17 +1249,219 @@ _site/
 
 ***More information on Cloudflare pages deployment can be found [here](https://developers.cloudflare.com/pages/get-started/).***
 
-### Custom Domain
+### Cloudflare Pages Configuration & Optimization
 
-After domain is in Cloudflare:
+#### Build Configuration Optimization
 
-1. Go to Cloudflare Pages project
-2. Click "Custom domains" tab
-3. Click "Set up a custom domain"
-4. Enter your domain
-5. DNS auto-configures (already in Cloudflare)
-6. SSL certificate provisions automatically
+**Go to:** Your Pages project → Settings → Builds & deployments
 
+**Recommended settings:**
+
+**Production branch:**
+- `main` (or whatever you set)
+
+**Preview deployments:**
+- Enable preview deployments: **ON**
+- This creates preview URLs for pull requests
+- Great for testing changes before merging
+
+**Build watch paths (optional):**
+- Can specify which files trigger rebuilds
+- Leave empty to rebuild on any change (recommended for now)
+
+#### Deploy Hooks (Optional)
+
+Deploy hooks allow triggering builds via URL:
+
+1. **Go to:** Settings → Builds & deployments → Deploy hooks
+2. **Click:** "Add deploy hook"
+3. **Name:** e.g., "Manual deploy"
+4. **Branch:** main
+5. **Save**
+
+**You get a unique URL to trigger deployments:**
+```bash
+curl -X POST [your-deploy-hook-url]
+```
+
+**Useful for:**
+- Triggering builds from external services
+- Manual deploys without git push
+- Integrations with CMS systems
+
+#### Environment Variables (Production vs Preview)
+
+If you need different environment variables for production vs preview:
+
+1. **Go to:** Settings → Environment variables
+2. **Add variables** with specific scope:
+   - Production only
+   - Preview only  
+   - Both
+
+**Example use case:**
+- Different API endpoints for production/preview
+- Different analytics IDs
+
+---
+
+#### Automatic Deployments
+
+**How it works:**
+
+**Every git push to production branch (main):**
+1. Cloudflare detects commit
+2. Automatically starts new build
+3. Runs `npm install` and `npm run build`
+4. Deploys new version
+5. Updates live site
+6. Previous version still accessible (can rollback)
+
+**Timeline:** 2-5 minutes per deployment
+
+#### Preview Deployments
+
+**Every pull request created:**
+1. Cloudflare builds PR branch
+2. Creates unique preview URL
+3. Updates preview on each PR commit
+4. Preview URL pattern: `[hash].[project].pages.dev`
+
+**Benefits:**
+- Test changes before merging
+- Share preview with others
+- Safe experimentation
+
+#### Deployment History
+
+**View all deployments:**
+1. **Go to:** Your Pages project → Deployments
+2. **See list of all builds:**
+   - Production deployments
+   - Preview deployments
+   - Status (success/failed)
+   - Commit message
+   - Build time
+   - Deployment URL
+
+**Actions available:**
+- View deployment
+- View build logs
+- Rollback to previous version
+- Delete deployment
+
+#### Rollback if Needed
+
+If you deploy a broken version:
+
+1. **Go to:** Deployments tab
+2. **Find:** Previous working deployment
+3. **Click:** ⋮ (three dots) → "Rollback to this deployment"
+4. **Confirm**
+
+**Your live site immediately serves the previous version** while you fix issues.
+
+#### Caching Configuration
+
+Cloudflare Pages automatically handles caching well, but you can optimize:
+
+**Go to:** Caching → Configuration (main Cloudflare dashboard)
+
+**Browser Cache TTL:**
+- Default: Respect existing headers (recommended)
+- Or set specific TTL
+
+**For 11ty sites:**
+- HTML: Short cache (or no-cache)
+- CSS/JS: Long cache with versioned URLs
+- Images: Long cache
+
+**11ty tip:** Use `eleventy-plugin-rev` or similar for cache-busting:
+```bash
+npm install eleventy-plugin-rev
+```
+
+This adds hashes to filenames: `style.css` → `style.abc123.css`
+
+#### Performance Settings
+
+**Go to:** Speed → Optimization
+
+**Recommended for 11ty + Bulma:**
+
+**Auto Minify:**
+- ✓ JavaScript
+- ✓ CSS  
+- ✓ HTML
+
+**Brotli:**
+- ✓ Enable (better compression than gzip)
+
+**Early Hints:**
+- ✓ Enable (faster page loads)
+
+**HTTP/3:**
+- ✓ Enable (already on by default)
+
+**Rocket Loader:**
+- ⚠️ Test this - can break some JavaScript
+- Try with OFF first, enable if no issues
+
+#### Image Optimization
+
+If your site has many images:
+
+**Cloudflare Images:**
+- Paid service (~$5/month for 100k images)
+- Automatic WebP/AVIF conversion
+- Resizing on-the-fly
+- Not necessary for small sites
+
+**Alternative: Optimize images before deployment**
+- Use imagemin, sharp, or similar
+- Add to your 11ty build process
+- Free and effective for smaller sites
+
+---
+
+#### Quick Reference Commands
+
+**Test local build:**
+```bash
+npm install
+npm run build
+# Check _site directory for output
+```
+
+**Manual deployment trigger:**
+```bash
+git add .
+git commit -m "Update content"
+git push origin main
+# Cloudflare automatically deploys
+```
+
+**View build logs:**
+- Cloudflare dashboard → Pages → Your project → Deployments → Click deployment → View logs
+
+**Rollback to previous version:**
+- Deployments → Previous deployment → ⋮ → Rollback
+
+---
+
+#### Post-Deployment Optimization Checklist
+
+After successful deployment and configuration:
+
+- [ ] Preview deployments enabled
+- [ ] Auto Minify enabled (JS, CSS, HTML)
+- [ ] Brotli compression enabled
+- [ ] Early Hints enabled
+- [ ] Cache-busting implemented (if needed)
+- [ ] Images optimized
+- [ ] Analytics set up (optional)
+- [ ] Deploy hooks configured (if needed)
+- [ ] Environment variables configured correctly
 ---
 
 ## Further Reading

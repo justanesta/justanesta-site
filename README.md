@@ -457,7 +457,13 @@ git push
 # Cloudflare auto-deploys in ~2 minutes
 ```
 
+### Specific Cloudflare Resources
 ***More information on Cloudflare pages deployment can be found [here](https://developers.cloudflare.com/pages/get-started/).***
+* [Build configuration references](https://developers.cloudflare.com/pages/configuration/build-configuration/#framework-presets)
+* [Dealing with custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/)
+* [Redirecting www to domain apex](https://developers.cloudflare.com/pages/how-to/www-redirect/)
+* [Create bulk redirects in the dashboard](https://developers.cloudflare.com/rules/url-forwarding/bulk-redirects/create-dashboard/#1-create-a-bulk-redirect-list)
+* [Manage DNS records](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/#create-dns-records)
 
 ---
 
