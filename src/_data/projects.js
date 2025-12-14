@@ -18,7 +18,7 @@ module.exports = [
     description: 'The goal of econanalyzr is to provide a collection of functions and helper datasets that help users obtain, analyze, and visualize economic data in a tidyverse adherent way.',
     skillDetails: ['R'].map(skill => skills.getSkill(skill)).filter(Boolean),
     links: {
-      demo: 'https://justanesta.com/econanalyzr/',
+      demo: 'https://justanesta.github.io/econanalyzr/',
       github: 'https://github.com/justanesta/econanalyzr'
     }
   },
