@@ -1247,6 +1247,8 @@ _site/
     └── index/
 ```
 
+***More information on Cloudflare pages deployment can be found [here](https://developers.cloudflare.com/pages/get-started/).***
+
 ### Custom Domain
 
 After domain is in Cloudflare:

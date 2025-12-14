@@ -457,6 +457,8 @@ git push
 # Cloudflare auto-deploys in ~2 minutes
 ```
 
+***More information on Cloudflare pages deployment can be found [here](https://developers.cloudflare.com/pages/get-started/).***
+
 ---
 
 ## Documentation
