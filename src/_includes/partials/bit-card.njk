@@ -1,0 +1,42 @@
+{# Bit Card Component
+   Displays a single bit (short-form post) with title, description, and metadata
+
+   Parameters:
+   - bit: Eleventy bit object with data, url, date, etc.
+
+   Note: Bits typically don't have thumbnails due to their short-form nature
+#}
+
+<article class="box mb-4" data-aos="fade-up">
+  <div class="bit-item">
+    <div class="level is-mobile mb-2">
+      <div class="level-left">
+        <div class="level-item">
+          <p class="subtitle is-6 has-text-grey">
+            {{ bit.date | readableDate }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="title is-5 mb-3">
+      <a href="{{ bit.url }}">{{ bit.data.title }}</a>
+    </h2>
+
+    {% if bit.data.description %}
+    <p class="content mb-3">{{ bit.data.description }}</p>
+    {% endif %}
+
+    {% if bit.data.tags %}
+    <div class="tags">
+      {% for tag in bit.data.tags %}
+      {% if tag !== "bit" %}
+      <a href="/bits/archive/#tag-{{ tag | slug }}" class="tag is-info is-light is-small">{{ tag }}</a>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <a href="{{ bit.url }}" class="button is-link is-light is-small">Read</a>
+  </div>
+</article>

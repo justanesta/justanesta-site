@@ -1,0 +1,355 @@
+---
+layout: base.njk
+title: Archive
+description: Browse all blog posts and bits by content type, year, category, or tag
+---
+
+<section class="section">
+  <div class="container">
+    <h1 class="title is-2">Archive</h1>
+    <p class="subtitle">Browse all blog posts and bits</p>
+
+    <!-- Archive Navigation Tabs -->
+    <div class="tabs is-boxed">
+      <ul>
+        <li class="is-active" data-tab="by-type">
+          <a>
+            <span class="icon is-small"><i class="fas fa-layer-group"></i></span>
+            <span>By Type</span>
+          </a>
+        </li>
+        <li data-tab="by-year">
+          <a>
+            <span class="icon is-small"><i class="fas fa-calendar"></i></span>
+            <span>By Year</span>
+          </a>
+        </li>
+        <li data-tab="by-category">
+          <a>
+            <span class="icon is-small"><i class="fas fa-folder"></i></span>
+            <span>By Category</span>
+          </a>
+        </li>
+        <li data-tab="by-tag">
+          <a>
+            <span class="icon is-small"><i class="fas fa-tags"></i></span>
+            <span>By Tag</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- By Type -->
+    <div id="by-type" class="tab-content">
+      <!-- Blog Posts Section -->
+      <div class="mb-6">
+        <h2 class="title is-3" id="type-blog">
+          <span class="icon-text">
+            <span class="icon"><i class="fas fa-pen"></i></span>
+            <span>Blog Posts</span>
+          </span>
+          <span class="tag is-primary is-light ml-2">{{ collections.posts.length }}</span>
+        </h2>
+
+        <div class="box">
+          {% for post in collections.posts | limit(10) %}
+          <div class="level is-mobile {% if not loop.last %}mb-4 pb-4 has-border-bottom{% endif %}">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <p class="subtitle is-6 has-text-grey mb-2">
+                    {{ post.date | readableDate }}
+                  </p>
+                  <h3 class="title is-5 mb-1">
+                    <a href="{{ post.url }}">{{ post.data.title }}</a>
+                  </h3>
+                  <div class="tags">
+                    {% if post.data.category %}
+                    <span class="tag is-link is-light">{{ post.data.category }}</span>
+                    {% endif %}
+                    {% if post.data.tags %}
+                      {% for tag in post.data.tags %}
+                      <span class="tag is-info is-light is-small">{{ tag }}</span>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% if collections.posts.length > 10 %}
+          <div class="has-text-centered mt-4">
+            <a href="/blog/" class="button is-link is-light">View All Blog Posts →</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Bits Section -->
+      <div class="mb-6">
+        <h2 class="title is-3" id="type-bits">
+          <span class="icon-text">
+            <span class="icon"><i class="fas fa-lightbulb"></i></span>
+            <span>Bits</span>
+          </span>
+          <span class="tag is-warning is-light ml-2">{{ collections.bits.length }}</span>
+        </h2>
+
+        {% if collections.bits.length > 0 %}
+        <div class="box">
+          {% for bit in collections.bits | limit(10) %}
+          <div class="level is-mobile {% if not loop.last %}mb-4 pb-4 has-border-bottom{% endif %}">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <p class="subtitle is-6 has-text-grey mb-2">
+                    {{ bit.date | readableDate }}
+                  </p>
+                  <h3 class="title is-5 mb-1">
+                    <a href="{{ bit.url }}">{{ bit.data.title }}</a>
+                  </h3>
+                  {% if bit.data.tags %}
+                  <div class="tags">
+                    {% for tag in bit.data.tags %}
+                    {% if tag !== "bit" %}
+                    <span class="tag is-info is-light is-small">{{ tag }}</span>
+                    {% endif %}
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% if collections.bits.length > 10 %}
+          <div class="has-text-centered mt-4">
+            <a href="/bits/" class="button is-warning is-light">View All Bits →</a>
+          </div>
+          {% endif %}
+        </div>
+        {% else %}
+        <div class="notification is-light">
+          <p>No bits yet. Check back soon for short how-to guides and quick tips!</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    
+    <!-- By Year -->
+    <div id="by-year" class="tab-content tab-content-hidden">
+      {% for yearGroup in collections.postsByYear %}
+      <div class="mb-6">
+        <h2 class="title is-3" id="year-{{ yearGroup.year }}">
+          {{ yearGroup.year }}
+          <span class="tag is-primary is-light ml-2">Blog</span>
+        </h2>
+
+        <div class="box">
+          {% for post in yearGroup.posts %}
+          <div class="level is-mobile {% if not loop.last %}mb-4 pb-4 has-border-bottom{% endif %}">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <p class="subtitle is-6 has-text-grey mb-2">
+                    {{ post.date | monthYear }}
+                  </p>
+                  <h3 class="title is-5 mb-1">
+                    <a href="{{ post.url }}">{{ post.data.title }}</a>
+                  </h3>
+                  <div class="tags">
+                    {% if post.data.category %}
+                    <span class="tag is-link is-light">{{ post.data.category }}</span>
+                    {% endif %}
+                    {% if post.data.tags %}
+                      {% for tag in post.data.tags %}
+                      <span class="tag is-info is-light is-small">{{ tag }}</span>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+
+      {% for yearGroup in collections.bitsByYear %}
+      <div class="mb-6">
+        <h2 class="title is-3" id="year-bits-{{ yearGroup.year }}">
+          {{ yearGroup.year }}
+          <span class="tag is-warning is-light ml-2">Bits</span>
+        </h2>
+
+        <div class="box">
+          {% for bit in yearGroup.bits %}
+          <div class="level is-mobile {% if not loop.last %}mb-4 pb-4 has-border-bottom{% endif %}">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <p class="subtitle is-6 has-text-grey mb-2">
+                    {{ bit.date | monthYear }}
+                  </p>
+                  <h3 class="title is-5 mb-1">
+                    <a href="{{ bit.url }}">{{ bit.data.title }}</a>
+                  </h3>
+                  {% if bit.data.tags %}
+                  <div class="tags">
+                    {% for tag in bit.data.tags %}
+                    {% if tag !== "bit" %}
+                    <span class="tag is-info is-light is-small">{{ tag }}</span>
+                    {% endif %}
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <!-- By Category -->
+    <div id="by-category" class="tab-content tab-content-hidden">
+      {% for categoryGroup in collections.postsByCategory %}
+      <div class="mb-6">
+        <h2 class="title is-3" id="category-{{ categoryGroup.category | slug }}">
+          {{ categoryGroup.category }}
+          <span class="tag is-link is-light">{{ categoryGroup.posts.length }}</span>
+        </h2>
+        
+        <div class="box">
+          {% for post in categoryGroup.posts %}
+          <div class="level is-mobile {% if not loop.last %}mb-4 pb-4 has-border-bottom{% endif %}">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <p class="subtitle is-6 has-text-grey mb-2">
+                    {{ post.date | readableDate }}
+                  </p>
+                  <h3 class="title is-5 mb-1">
+                    <a href="{{ post.url }}">{{ post.data.title }}</a>
+                  </h3>
+                  {% if post.data.tags %}
+                  <div class="tags">
+                    {% for tag in post.data.tags %}
+                    <span class="tag is-info is-light">{{ tag }}</span>
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <!-- By Tag -->
+    <div id="by-tag" class="tab-content tab-content-hidden">
+      <div class="mb-5">
+        <h2 class="title is-4">All Tags</h2>
+        <div class="tags">
+          {% for tag in collections.tagList %}
+          {% set postCount = collections.posts | filterByTag(tag) | length %}
+          {% set bitCount = collections.bits | filterBitsByTag(tag) | length %}
+          {% set totalCount = postCount + bitCount %}
+          {% if totalCount > 0 %}
+          <a href="#tag-{{ tag | slug }}" class="tag is-info is-light is-medium">
+            {{ tag }}
+            <span class="tag is-dark is-light ml-2">{{ totalCount }}</span>
+          </a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      {% for tag in collections.tagList %}
+      {% set taggedPosts = collections.posts | filterByTag(tag) %}
+      {% set taggedBits = collections.bits | filterBitsByTag(tag) %}
+      {% if taggedPosts.length > 0 or taggedBits.length > 0 %}
+      <div class="mb-6">
+        <h2 class="title is-3" id="tag-{{ tag | slug }}">
+          {{ tag }}
+          {% if taggedPosts.length > 0 %}
+          <span class="tag is-primary is-light ml-2">{{ taggedPosts.length }} Blog</span>
+          {% endif %}
+          {% if taggedBits.length > 0 %}
+          <span class="tag is-warning is-light ml-2">{{ taggedBits.length }} Bits</span>
+          {% endif %}
+        </h2>
+
+        <div class="box">
+          {% if taggedPosts.length > 0 %}
+          <h3 class="title is-5 mb-3">
+            <span class="icon-text">
+              <span class="icon"><i class="fas fa-pen"></i></span>
+              <span>Blog Posts</span>
+            </span>
+          </h3>
+          {% for post in taggedPosts %}
+          <div class="level is-mobile {% if not loop.last %}mb-4 pb-4 has-border-bottom{% endif %}">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <p class="subtitle is-6 has-text-grey mb-2">
+                    {{ post.date | readableDate }}
+                  </p>
+                  <h4 class="title is-6 mb-1">
+                    <a href="{{ post.url }}">{{ post.data.title }}</a>
+                  </h4>
+                  {% if post.data.category %}
+                  <span class="tag is-link is-light is-small">{{ post.data.category }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+
+          {% if taggedBits.length > 0 %}
+          {% if taggedPosts.length > 0 %}
+          <hr class="my-4">
+          {% endif %}
+          <h3 class="title is-5 mb-3">
+            <span class="icon-text">
+              <span class="icon"><i class="fas fa-lightbulb"></i></span>
+              <span>Bits</span>
+            </span>
+          </h3>
+          {% for bit in taggedBits %}
+          <div class="level is-mobile {% if not loop.last %}mb-4 pb-4 has-border-bottom{% endif %}">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <p class="subtitle is-6 has-text-grey mb-2">
+                    {{ bit.date | readableDate }}
+                  </p>
+                  <h4 class="title is-6 mb-1">
+                    <a href="{{ bit.url }}">{{ bit.data.title }}</a>
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<script src="/js/archive-tabs.js"></script>

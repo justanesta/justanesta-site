@@ -1,0 +1,90 @@
+---
+layout: base.njk
+title: Clips
+description: Published work and media appearances
+---
+
+<section class="section">
+  <div class="container" data-pagefind-body>
+    <h1 class="title is-2">Clips</h1>
+    <p class="subtitle">Some selections of clips from publications I have contributed to:</p>
+
+    {# Clips are accessed via global clips data (src/_data/clips.js).
+        They are manually grouped by publication in this template.
+        See project_documentation/CONTENT_ORGANIZATION.md for content organization patterns. #}
+
+    <!-- Build list of unique publications -->
+    {% set pub_set = [] %}
+    {% for clip in clips %}
+      {% if pub_set.indexOf(clip.publication) === -1 %}
+        {% set _ = pub_set.push(clip.publication) %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- Publication Navigation Buttons with Colors -->
+    <div class="mb-6" data-pagefind-ignore>
+      <div class="buttons are-medium">
+        {% for pub in pub_set | sort %}
+        <a href="#{{ pub | slug }}" class="button" style="background-color: {{ colorScheme.publications[pub].bg }}; color: {{ colorScheme.publications[pub].text }}; border-color: {{ colorScheme.publications[pub].bg }};">{{ pub }}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Clips grouped by publication -->
+    {% for pub in pub_set | sort %}
+    <!-- Filter clips for this publication -->
+    {% set pub_clips = [] %}
+    {% for clip in clips %}
+      {% if clip.publication == pub %}
+        {% set _ = pub_clips.push(clip) %}
+      {% endif %}
+    {% endfor %}
+    <!-- Sort by date in reverse chronological order -->
+    {% set sorted_pub_clips = pub_clips | sort(attribute="date") | reverse %}
+
+    <section id="{{ pub | slug }}" class="mt-6">
+      <h2 class="title is-3">{{ pub }}</h2>
+
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable">
+          <thead>
+            <tr>
+              <th>Article</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for clip in sorted_pub_clips %}
+            <tr data-pagefind-filter="type:clip" data-pagefind-filter="publication:{{ pub }}">
+              <td>
+                <div class="pb-2">
+                  <a href="{{ clip.url }}" target="_blank" class="has-text-link has-text-weight-semibold">
+                    {{ clip.title }}
+                  </a>
+                  {% if clip.date %}
+                  <div class="is-size-7 has-text-grey">
+                    {{ clip.date | monthYear }}
+                  </div>
+                  {% endif %}
+                </div>
+              </td>
+              <td>
+                <p class="is-size-7">{{ clip.description }}</p>
+                {% if clip.tags and clip.tags | length > 0 %}
+                <div class="tags mt-2">
+                  {% for tag in clip.tags %}
+                  <span class="tag is-small" style="background-color: {{ colorScheme.tags[tag].bg }}; color: {{ colorScheme.tags[tag].text }};">{{ tag }}</span>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {% endfor %}
+
+  </div>
+</section>

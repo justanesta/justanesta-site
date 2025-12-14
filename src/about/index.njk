@@ -1,0 +1,126 @@
+---
+layout: base.njk
+title: About
+description: About me
+---
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        
+        <h1 class="title is-2">About</h1>
+        
+        <!-- Introduction -->
+        <div class="content is-medium mb-6">
+          <p class="is-size-5">
+            Hello! I'm {{ site.name }}, a native San Diegan based in {{ site.location }}.
+          </p>
+          
+          <p>
+            I currently work as a {{ site.profession }}, a gig that allows me to pursue my passion of utilizing data to provide clarity to our increasingly complex world. My drive to unearth the most comprehensive and compelling answers to questions has been the rudder of my career. Whether its required making charts, creating databases, or even building web apps, I have found pleasure and purpose in learning the skills required to create and distribute information that can empower and inform. 
+          </p>
+          
+          <p>
+            I have extensive experience finding and analyzing publicly available datasets — particularly from U.S. government sources — that serve as some of the source material that supports my work. In previous roles I have covered topics like the COVID-19 pandemic, prescription drug prices, the labor & housing markets, and inflation for <a href="https://www.investopedia.com/">Investopedia</a>, <a href="https://www.verywellhealth.com/">Verywell Health</a>, <a href="https://citylimits.org/">City Limits</a> and others.
+          </p>
+
+          <p>
+            I am interested in data work on topics ranging from Bayesian statistics, economics — in particular labor economics — and finance, urbanism and transit, politics, as well as baseball, basketball, and film. 
+          </p>
+        </div>
+        
+        <!-- Skills Section (Alexandra Harris style) -->
+        <div class="mb-6">
+          <h2 class="title is-3">Skills</h2>
+
+          <div class="box">
+            <div class="columns is-multiline">
+              {% include "partials/skills-grid.njk" %}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Experience Section (Alexandra Harris style) -->
+        <div class="mb-6">
+          <h2 class="title is-3">Experience</h2>
+          
+          <div class="timeline">
+          {% for item in site.positions %}
+            <div class="box">
+              <article class="media">
+                <div class="media-left">
+                  <div class="has-text-centered experience-date">
+                    <p class="has-text-weight-bold">{{ item.startDate }}</p>
+                    <p class="has-text-weight-bold">{{ item.endDate }}</p>
+                  </div>
+                </div>
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong class="is-size-5">{{ item.title }}</strong>
+                      <br>
+                      <span class="has-text-grey">{{ item.organization }}, {{ item.location }}</span>
+                      <br><br>
+                      {{ item.description }}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          {% endfor %}
+            
+          </div>
+        </div>
+        
+        <!-- Education -->
+        <div class="mb-6">
+          <h2 class="title is-3">Education</h2>
+          
+          <div class="box">
+            <p class="mb-3">
+            {% for item in site.education %}
+              <strong class="is-size-5">{{ item.degree }}</strong>
+              <br>
+              <span class="has-text-grey">{{ item.school }}, {{ item.year }}</span>
+            {% endfor %}
+            </p>
+          </div>
+        </div>
+        
+        <!-- Recognition -->
+        <!-- <div class="mb-6">
+          <h2 class="title is-3">Recognition</h2>
+          
+          <div class="content">
+            <p>
+              My work has been featured in or recognized by:
+            </p>
+            <ul>
+              <li>Award or recognition #1</li>
+              <li>Publication feature #1</li>
+              <li>Honor or achievement #1</li>
+            </ul>
+          </div>
+        </div> -->
+        
+        <!-- Contact -->
+        <div class="mb-6">
+          <h2 class="title is-3">Get in Touch</h2>
+          
+          <div class="content">
+            <p>
+              I'm interested in collaborating on projects — particularly open source — or discussing
+              data journalism, data science, data visualization, economic data analysis and civic tech. Feel free to reach out:
+            </p>
+          </div>
+
+          {% set emailText = "Me" %}
+          {% set social = site.social %}
+          {% include "partials/social-buttons.njk" %}
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>

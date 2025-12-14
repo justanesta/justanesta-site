@@ -1,0 +1,46 @@
+{# Social Buttons Component
+   Displays social media links as buttons
+
+   Parameters:
+   - social: site.social object containing social media links and usernames
+   - small (optional): boolean, if true uses is-small class for smaller buttons
+   - iconsOnly (optional): boolean, if true displays only icons without labels
+#}
+
+<div class="buttons">
+  {% if social.github %}
+  <a href="{{ social.github }}" class="button is-{% if iconsOnly %}light{% else %}dark is-light{% endif %} {% if small %}is-small{% endif %}" target="_blank" aria-label="GitHub">
+    <span class="icon">
+      <i class="fab fa-github"></i>
+    </span>
+    {% if not iconsOnly %}<span>GitHub</span>{% endif %}
+  </a>
+  {% endif %}
+
+  {% if social.bluesky %}
+  <a href="{{ social.bluesky }}" class="button is-{% if iconsOnly %}light{% else %}info is-light{% endif %} {% if small %}is-small{% endif %}" target="_blank" aria-label="Bluesky">
+    <span class="icon">
+      <i class="fab fa-bluesky"></i>
+    </span>
+    {% if not iconsOnly %}<span>Bluesky</span>{% endif %}
+  </a>
+  {% endif %}
+
+  {% if social.linkedin %}
+  <a href="{{ social.linkedin }}" class="button is-{% if iconsOnly %}light{% else %}link is-light{% endif %} {% if small %}is-small{% endif %}" target="_blank" aria-label="LinkedIn">
+    <span class="icon">
+      <i class="fab fa-linkedin"></i>
+    </span>
+    {% if not iconsOnly %}<span>LinkedIn</span>{% endif %}
+  </a>
+  {% endif %}
+
+  {% if social.email %}
+  <a href="{{ social.email }}" class="button is-{% if iconsOnly %}light{% else %}link{% endif %} {% if small %}is-small{% endif %}" aria-label="Email">
+    <span class="icon">
+      <i class="fas fa-envelope"></i>
+    </span>
+    {% if not iconsOnly %}<span>Email{% if emailText %} {{ emailText }}{% endif %}</span>{% endif %}
+  </a>
+  {% endif %}
+</div>

@@ -1,0 +1,72 @@
+---
+layout: base.njk
+---
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8" data-pagefind-body data-pagefind-filter="type:bits">
+
+        <!-- Bit Header -->
+        <div class="content">
+          <h1 class="title is-3">{{ title }}</h1>
+
+          <div class="level is-mobile">
+            <div class="level-left">
+              <div class="level-item">
+                <p class="subtitle is-6 has-text-grey">
+                  <time datetime="{{ page.date | htmlDateString }}">
+                    {{ page.date | readableDate }}
+                  </time>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tags">
+            {% if tags %}
+              {% for tag in tags %}
+              {% if tag !== "bit" %}
+              <a href="/bits/archive/#tag-{{ tag | slug }}" class="tag is-info is-light" data-pagefind-filter="tag:{{ tag }}">{{ tag }}</a>
+              {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <hr>
+        </div>
+
+        <!-- Bit Content -->
+        <div class="content is-medium">
+          {{ content | safe }}
+        </div>
+
+        <!-- Bit Footer -->
+        <hr>
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <a href="/bits/" class="button is-light">
+                <span class="icon">
+                  <i class="fas fa-arrow-left"></i>
+                </span>
+                <span>Back to Bits</span>
+              </a>
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <a href="/feed.xml" class="button is-light is-small" title="Subscribe via RSS">
+                <span class="icon">
+                  <i class="fas fa-rss"></i>
+                </span>
+                <span>RSS</span>
+              </a>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+  </div>
+</section>

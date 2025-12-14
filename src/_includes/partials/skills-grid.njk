@@ -1,0 +1,32 @@
+{# Skills Grid Component
+   Displays skills organized by category in a responsive grid
+
+   Parameters:
+   - allSkillsByCategory: Result of "allSkillsByCategory" filter from .eleventy.js
+#}
+
+{% set allSkills = "" | allSkillsByCategory %}
+{% for categoryId, categoryGroup in allSkills %}
+{% set category = categoryGroup.category %}
+{% set skills = categoryGroup.skills %}
+
+<div class="column is-half">
+  <div class="skill-category">
+    <h3 class="subtitle is-5 has-text-weight-bold mb-3">
+      <span class="icon-text">
+        <span class="icon has-text-{{ category.bulmaColor | replace('is-', '') }}">
+          <i class="fas {{ category.icon }}"></i>
+        </span>
+        <span>{{ category.name }}</span>
+      </span>
+    </h3>
+    <div class="tags">
+      {% for skill in skills %}
+      <span class="tag {{ category.bulmaColor }} is-light">
+        <i class="{{ skill.icon }}"></i>&nbsp;{{ skill.displayName }}
+      </span>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endfor %}

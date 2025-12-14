@@ -1,0 +1,55 @@
+{# Project Card Component
+   Displays a single project with thumbnail, title, description, skills, and links
+
+   Parameters:
+   - project: Project object from projects.js data (with id field as slug)
+   - thumbnails: Global thumbnails data object (for checking if thumbnail exists)
+
+   Uses unified slug-based thumbnail system:
+   - Path auto-generated via thumbnailPath filter using project.id
+   - Alt text from thumbnailAlt filter
+#}
+
+{% set projectMeta = thumbnails.projects[project.id] %}
+{% set hasThumbnail = projectMeta != undefined %}
+<div class="box mb-5" data-aos="fade-up">
+  <article class="project-item">
+    {% if hasThumbnail %}
+    <div class="project-thumbnail" style="background-image: url('{{ project.id | thumbnailPath('projects') }}');"></div>
+    {% endif %}
+    <div class="project-content">
+      <h2 class="title is-4">{{ project.title }}</h2>
+      <p class="subtitle is-6 has-text-grey">{{ project.subtitle }}</p>
+
+      <p>{{ project.description }}</p>
+
+      <div class="tags mt-3">
+        {% for skillDetail in project.skillDetails %}
+        {% set categoryData = skillDetail.category | getCategory %}
+        <span class="tag {{ categoryData.bulmaColor }} is-light">
+          <i class="{{ skillDetail.icon }}"></i>&nbsp;{{ skillDetail.displayName }}
+        </span>
+        {% endfor %}
+      </div>
+
+      <div class="buttons mt-4">
+        {% if project.links.demo %}
+        <a href="{{ project.links.demo }}" class="button is-link">
+          <span class="icon">
+            <i class="fas fa-external-link-alt"></i>
+          </span>
+          <span>View Project</span>
+        </a>
+        {% endif %}
+        {% if project.links.github %}
+        <a href="{{ project.links.github }}" class="button is-dark is-light">
+          <span class="icon">
+            <i class="fab fa-github"></i>
+          </span>
+          <span>GitHub</span>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </article>
+</div>

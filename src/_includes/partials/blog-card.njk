@@ -1,0 +1,57 @@
+{# Blog Post Card Component
+   Displays a single blog post with thumbnail, title, description, and metadata
+
+   Parameters:
+   - post: Eleventy post object with data, url, date, etc.
+   - thumbnails: Global thumbnails data object (for checking if thumbnail exists)
+
+   Uses unified slug-based thumbnail system:
+   - Path auto-generated via thumbnailPath filter
+   - Alt text from thumbnailAlt filter
+#}
+
+{% set postMeta = thumbnails.posts[post.fileSlug] %}
+{% set hasThumbnail = postMeta != undefined %}
+<article class="box mb-5" data-aos="fade-up">
+  <div class="blog-post-item">
+    {% if hasThumbnail %}
+    <div class="blog-post-thumbnail" style="background-image: url('{{ post.fileSlug | thumbnailPath('posts') }}');"></div>
+    {% endif %}
+    <div class="blog-post-content">
+      <div class="level is-mobile">
+        <div class="level-left">
+          <div class="level-item">
+            <p class="subtitle is-6 has-text-grey">
+              {{ post.date | readableDate }}
+            </p>
+          </div>
+        </div>
+        {% if post.data.category %}
+        <div class="level-right">
+          <div class="level-item">
+            <a href="/archive/#category-{{ post.data.category | slug }}" class="tag is-link is-light">{{ post.data.category }}</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <h2 class="title is-4">
+        <a href="{{ post.url }}">{{ post.data.title }}</a>
+      </h2>
+
+      {% if post.data.description %}
+      <p class="content">{{ post.data.description }}</p>
+      {% endif %}
+
+      {% if post.data.tags %}
+      <div class="tags">
+        {% for tag in post.data.tags %}
+        <a href="/archive/#tag-{{ tag | slug }}" class="tag is-info is-light">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <a href="{{ post.url }}" class="button is-link is-light is-small">Read More</a>
+    </div>
+  </div>
+</article>

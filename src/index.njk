@@ -1,0 +1,213 @@
+---
+layout: base.njk
+title: Home
+---
+
+<section class="section hero-section">
+  <div class="container">
+    <div class="hero-intro" data-aos="fade-up" data-aos-duration="1000">
+      <h1 class="title is-1 hero-title"><span id="greeting">Hi</span>, I'm {{ site.name }}</h1>
+      <p class="subtitle is-4 hero-subtitle">{{ site.description }}</p>
+    </div>
+
+    <div class="columns is-multiline is-centered hero-charts">
+      <!-- Bimodal Bar Chart -->
+      <div class="column is-one-third" data-aos="fade-up" data-aos-delay="100">
+        <canvas id="bimodalChart" class="hero-chart-canvas"></canvas>
+      </div>
+
+      <!-- US Tilemap -->
+      <div class="column is-one-third" data-aos="fade-up" data-aos-delay="200">
+        <div class="hero-chart-container">
+          {% include "us-tilemap.njk" %}
+        </div>
+      </div>
+
+      <!-- Dual Line Chart -->
+      <div class="column is-one-third" data-aos="fade-up" data-aos-delay="300">
+        <canvas id="dualLineChart" class="hero-chart-canvas"></canvas>
+      </div>
+    </div>
+
+    <div class="hero-cta-buttons" data-aos="fade-up" data-aos-delay="400">
+      <a href="/about/" class="button is-light hero-btn-primary">
+        Learn more about me
+      </a>
+      <a href="/blog/" class="button is-light hero-btn-secondary">
+        Read my work
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Set time-based greeting
+  function setGreeting() {
+    const hour = new Date().getHours();
+    let greeting = 'Hi';
+
+    if (hour >= 5 && hour < 12) {
+      greeting = 'Good morning';
+    } else if (hour >= 12 && hour < 19) {
+      greeting = 'Good afternoon';
+    } else {
+      greeting = 'Good evening';
+    }
+
+    document.getElementById('greeting').textContent = greeting;
+  }
+
+  // Set greeting immediately
+  setGreeting();
+
+  // Initialize charts only when page loads (defer rendering)
+  window.addEventListener('load', function() {
+    // Bimodal Distribution Bar Chart
+    const bimodalCtx = document.getElementById('bimodalChart').getContext('2d');
+    new Chart(bimodalCtx, {
+      type: 'bar',
+      data: {
+        labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      datasets: [{
+        label: 'Frequency',
+        data: [5, 8, 12, 18, 22, 25, 20, 12, 8, 15, 20, 28, 32, 25, 18],
+        backgroundColor: '#d8586a',
+        borderColor: '#d8586a',
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          enabled: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            display: false
+          },
+          grid: {
+            display: false
+          },
+          border: {
+            color: '#ffffff',
+            width: 2
+          }
+        },
+        x: {
+          ticks: {
+            display: false
+          },
+          grid: {
+            display: false
+          },
+          border: {
+            color: '#ffffff',
+            width: 2
+          }
+        }
+      }
+    }
+  });
+
+    // Dual Line Chart (opposite trends)
+    const dualLineCtx = document.getElementById('dualLineChart').getContext('2d');
+    new Chart(dualLineCtx, {
+      type: 'line',
+      data: {
+        labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      datasets: [
+        {
+          label: 'Ascending',
+          data: [10, 15, 18, 22, 25, 28, 32, 35, 38, null, null, null, null, null, null, null],
+          borderColor: '#f0f723',
+          tension: 0.4,
+          fill: false,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          pointHoverRadius: 0
+        },
+        {
+          label: 'Ascending Projection',
+          data: [null, null, null, null, null, null, null, null, 38, 35, 32, 28, 25, 22, 18, 15],
+          borderColor: '#f0f723',
+          borderDash: [5, 5],
+          tension: 0.4,
+          fill: false,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          pointHoverRadius: 0
+        },
+        {
+          label: 'Descending',
+          data: [50, 48, 45, 42, 38, 35, 32, 28, 25, null, null, null, null, null, null, null],
+          borderColor: '#f38a47',
+          tension: 0.4,
+          fill: false,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          pointHoverRadius: 0
+        },
+        {
+          label: 'Descending Projection',
+          data: [null, null, null, null, null, null, null, null, 25, 28, 32, 35, 38, 42, 45, 48],
+          borderColor: '#f38a47',
+          borderDash: [5, 5],
+          tension: 0.4,
+          fill: false,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          pointHoverRadius: 0
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          enabled: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            display: false
+          },
+          grid: {
+            display: true,
+            color: 'rgba(255, 255, 255, 0.1)'
+          },
+          border: {
+            color: '#ffffff',
+            width: 2
+          }
+        },
+        x: {
+          ticks: {
+            display: false
+          },
+          grid: {
+            display: false
+          },
+          border: {
+            color: '#ffffff',
+            width: 2
+          }
+        }
+      }
+    }
+    });
+  });
+</script>

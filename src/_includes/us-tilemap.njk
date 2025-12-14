@@ -1,0 +1,127 @@
+{# us-tilemap.njk
+   Re-usable tile grid map of US states.
+
+   Usage example in a page/post template:
+
+   {% include "us-tilemap.njk" %}
+
+   The tilemap will automatically color each state using the stateColor filter,
+   which provides a deterministic chloropleth coloring from a custom palette.
+#}
+
+{% set tiles = [
+  { code: "AK", x: 6, y: 20  },
+  { code: "HI", x: 6, y: 258 },
+
+  { code: "VT", x: 360, y: 54  },
+  { code: "NH", x: 394, y: 54  },
+  { code: "ME", x: 394, y: 20  },
+
+  { code: "WA", x: 20,  y: 88  },
+  { code: "ID", x: 54,  y: 88  },
+  { code: "MT", x: 88,  y: 88  },
+  { code: "ND", x: 122, y: 88  },
+  { code: "MN", x: 156, y: 88  },
+  { code: "WI", x: 190, y: 88  },
+  { code: "MI", x: 224, y: 88  },
+  { code: "NY", x: 292, y: 88  },
+  { code: "CT", x: 326, y: 88  },
+  { code: "RI", x: 360, y: 88  },
+  { code: "MA", x: 394, y: 88  },
+
+  { code: "OR", x: 20,  y: 122 },
+  { code: "NV", x: 54,  y: 122 },
+  { code: "WY", x: 88,  y: 122 },
+  { code: "SD", x: 122, y: 122 },
+  { code: "IA", x: 156, y: 122 },
+  { code: "IL", x: 190, y: 122 },
+  { code: "IN", x: 224, y: 122 },
+  { code: "OH", x: 258, y: 122 },
+  { code: "PA", x: 292, y: 122 },
+  { code: "NJ", x: 326, y: 122 },
+  { code: "DE", x: 360, y: 122 },
+
+  { code: "CA", x: 20,  y: 156 },
+  { code: "UT", x: 54,  y: 156 },
+  { code: "CO", x: 88,  y: 156 },
+  { code: "NE", x: 122, y: 156 },
+  { code: "MO", x: 156, y: 156 },
+  { code: "KY", x: 190, y: 156 },
+  { code: "WV", x: 224, y: 156 },
+  { code: "VA", x: 258, y: 156 },
+  { code: "DC", x: 292, y: 156 },
+  { code: "MD", x: 326, y: 156 },
+
+  { code: "AZ", x: 54,  y: 190 },
+  { code: "NM", x: 88,  y: 190 },
+  { code: "KS", x: 122, y: 190 },
+  { code: "AR", x: 156, y: 190 },
+  { code: "MS", x: 190, y: 190 },
+  { code: "TN", x: 224, y: 190 },
+  { code: "NC", x: 258, y: 190 },
+
+  { code: "OK", x: 122, y: 224 },
+  { code: "LA", x: 156, y: 224 },
+  { code: "AL", x: 190, y: 224 },
+  { code: "GA", x: 224, y: 224 },
+  { code: "SC", x: 258, y: 224 },
+
+  { code: "TX", x: 122, y: 258 },
+  { code: "FL", x: 258, y: 258 }
+] %}
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 460 290"
+     role="img"
+     aria-labelledby="title desc"
+     class="us-tilemap"
+     style="max-width: 100%; height: auto;">
+  <title id="title">US States Tile Grid Map</title>
+  <desc id="desc">
+    Square tile grid map of US states, laid out as a tilegram with Alaska and
+    Hawaii repositioned.
+  </desc>
+
+  {# You can move these styles into your main CSS if you prefer #}
+  <style>
+    .state-tile {
+      stroke: #ffffff;
+      stroke-width: 1;
+    }
+    .state-label {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 10px;
+      font-weight: bold;
+      text-anchor: middle;
+      dominant-baseline: central;
+      fill: #ffffff;
+      pointer-events: none;
+    }
+    .state-label-dark {
+      fill: #000000;
+    }
+  </style>
+
+  {% for tile in tiles %}
+    {% set code = tile.code %}
+    {% set x = tile.x %}
+    {% set y = tile.y %}
+    {% set color = code | stateColor %}
+    {% set isDarkLabel = color == "#f0f723" %}
+
+    <g id="state-{{ code }}"
+       data-state="{{ code }}">
+      <rect class="state-tile"
+            x="{{ x }}"
+            y="{{ y }}"
+            width="30"
+            height="30"
+            style="fill: {{ color }}" />
+      <text class="state-label{% if isDarkLabel %} state-label-dark{% endif %}"
+            x="{{ x + 15 }}"
+            y="{{ y + 15 }}">
+        {{ code }}
+      </text>
+    </g>
+  {% endfor %}
+</svg>

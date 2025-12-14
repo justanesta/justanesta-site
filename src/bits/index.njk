@@ -1,0 +1,61 @@
+---
+layout: base.njk
+title: Bits
+description: Short how-to guides and quick tips
+---
+
+<section class="section">
+  <div class="container">
+    <h1 class="title is-2">Bits</h1>
+    <p class="subtitle">Short how-to guides, quick tips, and things I learned today</p>
+
+    <div class="columns">
+      <div class="column is-12">
+        {# Bits are short-form content accessed via collections.bits (Eleventy collection).
+            Similar to blog posts but more concise and focused on how-to content. #}
+        <div class="box mb-5">
+          <h3 class="title is-5 mb-4">Browse by</h3>
+          <div class="buttons mb-5">
+            <a href="/bits/archive/#by-year" class="button is-link is-light">
+              <span class="icon">
+                <i class="fas fa-calendar"></i>
+              </span>
+              <span>Year</span>
+            </a>
+            <a href="/bits/archive/#by-tag" class="button is-info is-light">
+              <span class="icon">
+                <i class="fas fa-tags"></i>
+              </span>
+              <span>Tag</span>
+            </a>
+            <button class="button is-primary is-light" id="bitsSearchToggle">
+              <span class="icon">
+                <i class="fas fa-search"></i>
+              </span>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+
+        <script>
+          // Add event listener for bits search button
+          document.addEventListener('DOMContentLoaded', () => {
+            const bitsSearchToggle = document.getElementById('bitsSearchToggle');
+            if (bitsSearchToggle) {
+              bitsSearchToggle.addEventListener('click', () => {
+                const searchToggle = document.getElementById('searchToggle');
+                if (searchToggle) {
+                  searchToggle.click();
+                }
+              });
+            }
+          });
+        </script>
+
+        {% for bit in collections.bits %}
+        {% include "partials/bit-card.njk" %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

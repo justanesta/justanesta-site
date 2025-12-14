@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if title %}{{ title }} - {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/bulma.min.css">
+  <link rel="stylesheet" href="/css/custom.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="/feed.xml">
+
+  <!-- SEO Meta Tags -->
+  <meta name="author" content="{{ site.name }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:title" content="{% if title %}{{ title }}{% else %}{{ site.title }}{% endif %}">
+  <meta property="og:description" content="{{ site.description }}">
+  <meta property="og:image" content="{{ site.url }}{{ site.seo.image }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+  
+  <!-- Navigation -->
+  <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item has-text-weight-bold is-size-5" href="/">
+          {{ site.moniker }}
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          {% for item in site.nav %}
+            {% if item.url == "/search/" %}
+            <div class="navbar-item">
+              <button class="search-toggle" id="searchToggle" aria-label="Open search">
+                <span class="icon is-medium">
+                  <i class="fas {{ item.icon }}"></i>
+                </span>
+              </button>
+            </div>
+            {% else %}
+            <a href="{{ item.url }}" class="navbar-item">{{ item.label }}</a>
+            {% endif %}
+          {% endfor %}
+          <div class="navbar-item">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+              <span class="icon is-medium">
+                <i class="fas fa-moon" id="themeIcon"></i>
+              </span>
+            </button>
+          </div>
+          <div class="navbar-item">
+            <a href="/feed.xml" aria-label="RSS Feed" title="Subscribe via RSS">
+              <span class="icon is-medium">
+                <i class="fas fa-rss"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search Modal -->
+  <div id="searchModal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Search</p>
+        <button class="delete" aria-label="close" id="closeSearch"></button>
+      </header>
+      <section class="modal-card-body">
+        <div id="modalSearch"></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer has-background-light">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column">
+          <p class="has-text-grey">
+              <span class="icon">
+                <i class="fab fa-creative-commons"></i>
+              </span>
+               {% year %} {{ site.copyrightName }}
+          </p>
+          <p class="has-text-grey">
+            All content licensed under&nbsp;
+            <a href = "https://creativecommons.org/licenses/by-sa/4.0/"><i class="fab fa-creative-commons"></i><i class="fab fa-creative-commons-by"></i><i class="fab fa-creative-commons-sa"></i>Creative Commons CC BY-SA 4.0
+            </a>
+          </p>
+        </div>
+        <div class="column is-narrow">
+          {% set iconsOnly = true %}
+          {% set social = site.social %}
+          {% include "partials/social-buttons.njk" %}
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Load Pagefind for search modal -->
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <script src="/pagefind/pagefind-ui.js"></script>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/theme-toggle.js"></script>
+  <script src="/js/search-modal.js"></script>
+</body>
+</html>

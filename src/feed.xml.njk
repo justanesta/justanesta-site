@@ -1,0 +1,51 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+{%- set metadata = {
+  title: site.title,
+  subtitle: site.description,
+  language: "en",
+  url: site.url,
+  feedUrl: site.url + "/feed.xml",
+  author: {
+    name: site.name,
+    email: "adrian@justanesta.com"
+  }
+} -%}
+{%- set allContent = collections.allContent -%}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="{{ metadata.url }}">
+  <title>{{ metadata.title }}</title>
+  <subtitle>{{ metadata.subtitle }} - Blog posts and bits</subtitle>
+  <link href="{{ metadata.feedUrl }}" rel="self"/>
+  <link href="{{ metadata.url }}"/>
+  <updated>{{ allContent | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
+  <id>{{ metadata.url }}</id>
+  <author>
+    <name>{{ metadata.author.name }}</name>
+    <email>{{ metadata.author.email }}</email>
+  </author>
+  {%- for item in allContent %}
+  {% set absoluteItemUrl = item.url | absoluteUrl(metadata.url) %}
+  {% set contentType = "blog" if item.inputPath and ("src/blog/" in item.inputPath) else "bit" %}
+  <entry>
+    <title>{{ item.data.title }}</title>
+    <link href="{{ absoluteItemUrl }}"/>
+    <updated>{{ item.date | dateToRfc3339 }}</updated>
+    <id>{{ absoluteItemUrl }}</id>
+    <content type="html">{{ item.data.description | htmlToAbsoluteUrls(absoluteItemUrl) }}</content>
+    <category term="{{ contentType }}" label="Content Type"/>
+    {%- if item.data.category %}
+    <category term="{{ item.data.category }}"/>
+    {%- endif %}
+    {%- if item.data.tags %}
+    {%- for tag in item.data.tags %}
+    {%- if tag != "post" and tag != "bit" %}
+    <category term="{{ tag }}"/>
+    {%- endif %}
+    {%- endfor %}
+    {%- endif %}
+  </entry>
+  {%- endfor %}
+</feed>

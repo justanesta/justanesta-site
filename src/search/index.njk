@@ -1,0 +1,40 @@
+---
+layout: base.njk
+title: Search
+description: Search blog posts, projects, and published work
+eleventyExcludeFromCollections: true
+---
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-10">
+
+        <h1 class="title is-2">Search</h1>
+        <p class="subtitle">Search across blog posts, projects, and clips</p>
+
+        <!-- Pagefind search UI container -->
+        <div id="search" class="box"></div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Load Pagefind CSS and JS -->
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    // Initialize Pagefind UI
+    new PagefindUI({
+      element: "#search",
+      showSubResults: true,
+      showImages: false,
+      excerptLength: 30,
+      resetStyles: false,
+      bundlePath: "/pagefind/"
+    });
+  });
+</script>

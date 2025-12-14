@@ -1,0 +1,68 @@
+---
+layout: base.njk
+title: Blog
+description: All blog posts
+---
+
+<section class="section">
+  <div class="container">
+    <h1 class="title is-2">Blog</h1>
+    <p class="subtitle">A collection of data-driven stories about whatever I happen to be interested in</p>
+
+    <div class="columns">
+      <div class="column is-12">
+        {# Blog posts are accessed via collections.posts (Eleventy collection of markdown files).
+            Thumbnails are looked up via post.fileSlug key in the centralized thumbnails.posts data.
+            See project_documentation/CONTENT_ORGANIZATION.md for content organization patterns. #}
+        <div class="box mb-5">
+          <h3 class="title is-5 mb-4">Browse by</h3>
+          <div class="buttons mb-5">
+            <a href="/archive/#by-year" class="button is-link is-light">
+              <span class="icon">
+                <i class="fas fa-calendar"></i>
+              </span>
+              <span>Year</span>
+            </a>
+            <a href="/archive/#by-category" class="button is-info is-light">
+              <span class="icon">
+                <i class="fas fa-folder"></i>
+              </span>
+              <span>Category</span>
+            </a>
+            <a href="/archive/#by-tag" class="button is-info is-light">
+              <span class="icon">
+                <i class="fas fa-tags"></i>
+              </span>
+              <span>Tag</span>
+            </a>
+            <button class="button is-primary is-light" id="blogSearchToggle">
+              <span class="icon">
+                <i class="fas fa-search"></i>
+              </span>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+
+        <script>
+          // Add event listener for blog search button
+          document.addEventListener('DOMContentLoaded', () => {
+            const blogSearchToggle = document.getElementById('blogSearchToggle');
+            if (blogSearchToggle) {
+              blogSearchToggle.addEventListener('click', () => {
+                const searchToggle = document.getElementById('searchToggle');
+                if (searchToggle) {
+                  searchToggle.click();
+                }
+              });
+            }
+          });
+        </script>
+
+        {% for post in collections.posts %}
+        {% include "partials/blog-card.njk" %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

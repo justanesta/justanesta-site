@@ -1,0 +1,22 @@
+---
+layout: base.njk
+title: Projects
+description: Selected work and projects
+---
+
+<section class="section">
+  <div class="container" data-pagefind-body>
+    <h1 class="title is-2">Projects</h1>
+    <p class="subtitle">Selected projects and larger bodies of work</p>
+
+    {% for project in projects %}
+    {# Projects are accessed via global projects data (src/_data/projects.js).
+        Thumbnails are looked up via project.thumbnail property in the centralized thumbnails.projects data.
+        See project_documentation/CONTENT_ORGANIZATION.md for content organization patterns. #}
+    <article data-pagefind-filter="type:project">
+      {% include "partials/project-card.njk" %}
+    </article>
+    {% endfor %}
+
+  </div>
+</section>

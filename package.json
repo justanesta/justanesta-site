@@ -1,0 +1,31 @@
+{
+  "name": "justanesta-site",
+  "version": "1.0.0",
+  "description": "Personal portfolio and blog for justanesta.com - Built with 11ty and Bulma",
+  "scripts": {
+    "start": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy && npx pagefind --site _site",
+    "new:post": "./scripts/new-post.sh",
+    "new:project": "./scripts/new-project.sh",
+    "new:clip": "./scripts/new-clip.sh",
+    "optimize": "./scripts/optimize-images.sh",
+    "optimize:fix": "./scripts/optimize-images.sh --fix"
+  },
+  "keywords": [
+    "portfolio",
+    "blog",
+    "11ty",
+    "eleventy",
+    "bulma"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "pagefind": "^1.4.0"
+  },
+  "dependencies": {
+    "@11ty/eleventy-plugin-rss": "^2.0.4",
+    "bulma": "^1.0.0"
+  }
+}
