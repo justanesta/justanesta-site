@@ -8,6 +8,7 @@
     "new:post": "./scripts/new-post.sh",
     "new:project": "./scripts/new-project.sh",
     "new:clip": "./scripts/new-clip.sh",
+    "new:bit": "./scripts/new-bit.sh",
     "optimize": "./scripts/optimize-images.sh",
     "optimize:fix": "./scripts/optimize-images.sh --fix"
   },
@@ -18,8 +19,8 @@
     "eleventy",
     "bulma"
   ],
-  "author": "",
-  "license": "MIT",
+  "author": "Adrian Nesta",
+  "license": "CC BY-SA 4.0",
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
     "pagefind": "^1.4.0"
