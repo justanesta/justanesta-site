@@ -5,7 +5,7 @@ module.exports = {
   
   // Site Metadata
   title: "Adrian Nesta - Portfolio & Blog",
-  description: "Otherwise known as just A. Nesta. I'm a data professional creating stories & tools through web development, data engineering, data analysis and visualization.",
+  description: "Otherwise known as just A. Nesta. I'm a data professional creating informational tools and stories through data engineering, web development, data analysis and visualization.",
   tagline: "Data journalist and developer",
   url: process.env.URL || "https://justanesta.com",
   

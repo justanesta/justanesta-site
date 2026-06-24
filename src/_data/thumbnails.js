@@ -49,8 +49,8 @@ module.exports = {
     'middle-class-checker': {
       alt: 'Web app to check provided income compared to median household income in specified area'
     },
-    'food-safety-recalls': {
-      alt: 'Data pipeline to collect, scrape, and present FDA and USDA food safety recalls in real time'
+    'consumer-product-recalls': {
+      alt: 'Data pipeline, database, api and website that collects and presents consumer product recalls in real time'
     },
     'econanalyzr-r-package': {
       alt: 'R package with functions to help analyze economic data'

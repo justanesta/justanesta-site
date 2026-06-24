@@ -54,13 +54,13 @@ module.exports = {
       category: 'programming',
       aliases: ['R', 'r-project']
     },
-    javascript: {
-      name: 'javascript',
-      displayName: 'JavaScript',
-      icon: 'fab fa-js',
-      category: 'programming',
-      aliases: ['JavaScript', 'JS', 'js']
-    },
+    // javascript: {
+    //   name: 'javascript',
+    //   displayName: 'JavaScript',
+    //   icon: 'fab fa-js',
+    //   category: 'programming',
+    //   aliases: ['JavaScript', 'JS', 'js']
+    // },
     sql: {
       name: 'sql',
       displayName: 'SQL',
@@ -75,13 +75,27 @@ module.exports = {
       category: 'programming',
       aliases: ['Django', 'django']
     },
-    nodejs: {
-      name: 'nodejs',
-      displayName: 'Node.js',
-      icon: 'fab fa-node-js',
+    fastapi: {
+      name: 'FastAPI',
+      displayName: 'fastAPI',
+      icon: 'fas fa-forward-fast',
       category: 'programming',
-      aliases: ['Node.js', 'nodejs', 'node']
+      aliases: ['FastAPI', 'fastapi']
     },
+    uv: {
+      name: 'uv',
+      displayName: 'uv',
+      icon: 'fas fa-sun',
+      category: 'programming',
+      aliases: ['uv', 'UV']
+    },
+    // nodejs: {
+    //   name: 'nodejs',
+    //   displayName: 'Node.js',
+    //   icon: 'fab fa-node-js',
+    //   category: 'programming',
+    //   aliases: ['Node.js', 'nodejs', 'node']
+    // },
 
     // Data Visualization
     datawrapper: {
@@ -165,13 +179,6 @@ module.exports = {
       category: 'data-analysis',
       aliases: ['tidyverse', 'Tidyverse']
     },
-    postgresql: {
-      name: 'postgresql',
-      displayName: 'PostgreSQL',
-      icon: 'fas fa-database',
-      category: 'data-analysis',
-      aliases: ['PostgreSQL', 'postgresql', 'postgres']
-    },
     sqlite: {
       name: 'sqlite',
       displayName: 'SQLite',
@@ -208,6 +215,41 @@ module.exports = {
       icon: 'fab fa-square-github',
       category: 'data-engineering',
       aliases: ['GitHub Actions', 'github-actions']
+    },
+    postgresql: {
+      name: 'postgresql',
+      displayName: 'PostgreSQL',
+      icon: 'fab fa-postgresql',
+      category: 'data-engineering',
+      aliases: ['PostgreSQL', 'postgresql', 'postgres']
+    },
+    neon: {
+      name: 'neon',
+      displayName: 'Neon',
+      icon: 'fas fa-database',
+      category: 'data-engineering',
+      aliases: ['Neon', 'neon']
+    },
+    dbt: {
+      name: 'dbt',
+      displayName: 'dbt',
+      icon: 'fas fa-trowel-bricks',
+      category: 'data-engineering',
+      aliases: ['dbt', 'data built tool', 'dbt-core']
+    },
+    alembic: {
+      name: 'alembic',
+      displayName: 'Alembic',
+      icon: 'fas fa-people-carry-box',
+      category: 'data-engineering',
+      aliases: ['alembic', 'Alembic']
+    },
+    airflow: {
+      name: 'airflow',
+      displayName: 'Apache Airflow',
+      icon: 'fas fa-fan',
+      category: 'data-engineering',
+      aliases: ['Apache Airflow', 'airflow']
     }
   },
 

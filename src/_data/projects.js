@@ -23,13 +23,14 @@ module.exports = [
     }
   },
   {
-    id: 'food-safety-recalls',
-    title: 'Food Safety Recalls',
-    subtitle: 'Data pipeline',
-    description: 'A repository that contains real-time continuously updated data on food safety recalls published by the FDA and USDA.',
-    skillDetails: ['python'].map(skill => skills.getSkill(skill)).filter(Boolean),
+    id: 'consumer-product-recalls',
+    title: 'Consumer Product Recalls',
+    subtitle: 'Data pipeline, database, API, and website',
+    description: 'A data pipeline, database, and API that contain real-time continuously updated data on consumer recalls published by the CPSC, FDA, USDA, NHTSA, and USCG.',
+    skillDetails: ['python', 'uv', 'git', 'github-actions', 'postgresql', 'neon', 'alembic', 'dbt'].map(skill => skills.getSkill(skill)).filter(Boolean),
     links: {
-      github: 'https://github.com/justanesta/food_safety_recalls'
+      demo: 'https://consumer-product-recalls.info/',
+      github: 'https://github.com/justanesta/consumer-product-recalls'
     }
   },
   {
